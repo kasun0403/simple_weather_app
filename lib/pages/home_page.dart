@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_weather_app/models/weather_model.dart';
 import 'package:simple_weather_app/pages/search_weather_page.dart';
+import 'package:simple_weather_app/providers/theme_provider.dart';
 import 'package:simple_weather_app/services/weather_service.dart';
 import 'package:simple_weather_app/widgets/display_weather.dart';
 
@@ -45,8 +47,19 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.light_mode),
+            onPressed: () {
+              Provider.of<ThemeProvider>(context, listen: false)
+                  .toggleTheme(Theme.of(context).brightness != Brightness.dark);
+            },
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.light_mode
+                  : Icons.dark_mode,
+              size: 30,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black,
+            ),
           ),
         ],
       ),
@@ -56,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DisplayWeather(weather: _weather!),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextButton(
@@ -64,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SearchWeatherPage(),
+                        builder: (context) => const SearchWeatherPage(),
                       ),
                     );
                   },
