@@ -31,7 +31,6 @@ class _SearchWeatherPageState extends State<SearchWeatherPage> {
       setState(() {
         _weather = weather;
         _errorStatus = null;
-        ;
       });
     } catch (e) {
       setState(() {

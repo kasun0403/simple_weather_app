@@ -50,7 +50,7 @@ class WeatherService {
     try {
       final String url = "$BASE_URL/?q=$cityName&appid=$apiKey&units=metric";
       final responce = await http.get(Uri.parse(url));
-      print("${responce.body}");
+      print(responce.body);
       if (responce.statusCode == 200) {
         Weather weather = Weather.fromJson(json.decode(responce.body));
         return weather;
